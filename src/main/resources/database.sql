@@ -10,9 +10,9 @@ id int NOT null PRIMARY KEY,
 name varchar(100) NOT NULL
 );
 
-create table if not exists book_readers
+create table if not exists book_reader
 (
-id int primary key,
+id serial primary key,
 book_id int REFERENCES books (id),
 reader_id int references readers(id)
 );

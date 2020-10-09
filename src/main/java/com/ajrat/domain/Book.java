@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @ToString
 @Getter
+@Setter
 @Table(name = "books")
 public class Book {
     @Id

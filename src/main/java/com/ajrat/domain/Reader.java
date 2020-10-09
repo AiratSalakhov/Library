@@ -10,6 +10,8 @@ import javax.persistence.Table;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Table(name="readers")
 public class Reader {
     @Id
