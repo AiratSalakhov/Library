@@ -3,8 +3,6 @@ package com.ajrat.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 
 @Entity

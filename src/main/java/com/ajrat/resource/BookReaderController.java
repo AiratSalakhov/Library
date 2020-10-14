@@ -11,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +32,7 @@ public class BookReaderController {
         Reader reader = readerService.findById(readerId);
         if (book.getBookReaders().stream().anyMatch(a -> a.getReturn_data() == null)) {
             log.info("Book with id {} is already taken", bookId);
-            throw new RuntimeException("Book with id "+bookId+" is already taken!");
+            throw new RuntimeException("Book with id " + bookId + " is already taken!");
         }
         BookReader bookReader = new BookReader(null, book, reader, ZonedDateTime.now(), null);
         bookReaderService.save(bookReader);
@@ -45,10 +43,10 @@ public class BookReaderController {
         Book book = bookService.findById(bookId);
         if (book.getBookReaders().stream().noneMatch(a -> a.getReturn_data() == null)) {
             log.info("Book with id {} is not taken", bookId);
-            throw new RuntimeException("Book with id "+bookId+" is not taken!");
+            throw new RuntimeException("Book with id " + bookId + " is not taken!");
         }
         for (BookReader bookReader : book.getBookReaders()) {
-            if (bookReader.getReturn_data()==null) {
+            if (bookReader.getReturn_data() == null) {
                 bookReader.setReturn_data(ZonedDateTime.now());
                 bookReaderService.save(bookReader);
                 break;

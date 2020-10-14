@@ -9,8 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @RequiredArgsConstructor
 public class MVCController {
-    @GetMapping("/hello")
+    @GetMapping("/")
     public String sayHello() {
         return "hello";
+    }
+
+    @GetMapping("/newelement")
+    public String createNewElement() {
+        return "newelement";
     }
 }
