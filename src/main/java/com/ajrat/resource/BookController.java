@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -48,6 +49,15 @@ public class BookController {
     public void createBook(@RequestBody Book book) {
         log.info("creating book from controller with id {} trough post", book.getId());
         bookService.save(book);
+    }
+
+    @PostMapping("/id")
+    public void testIntegerId(@RequestHeader Map<String, String> headers, @RequestBody String reqBody, @RequestParam(required = false) Integer id) {
+        headers.forEach((key, value) -> {
+            log.info(String.format("Header '%s' = %s", key, value));
+        });
+        log.info("Request body={}", reqBody);
+        log.info("Integer id {} obtained trough post method", id);
     }
 
     @PutMapping
