@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: ajrat
+      changes:
+        - createTable:
+            tableName: book_readers
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: book_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reader_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: issue_data
+                  type: timestamp
+                  constraints:
+                    nullable: false
+              - column:
+                  name: return_data
+                  type: timestamp

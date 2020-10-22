@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: ajrat
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: book_id
+            baseTableName: book_readers
+            constraintName: book_readers_book_id_fkey
+            referencedColumnNames: id
+            referencedTableName: books
+        - addForeignKeyConstraint:
+            baseColumnNames: reader_id
+            baseTableName: book_readers
+            constraintName: book_readers_reader_id_fkey
+            referencedColumnNames: id
+            referencedTableName: readers

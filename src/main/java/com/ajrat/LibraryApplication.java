@@ -24,6 +24,6 @@ public class LibraryApplication {
         int value = Stream.of(1, 2, 3, 4, 5, 6)
                 .collect(Collectors.reducing(
                         0, (a, b) -> a + b));
-        System.out.println("value" + value);
+        System.out.println("value=" + value);
     }
 }

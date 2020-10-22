@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/01-create-table-books.yml
+  - include:
+      file: db/changelog/changes/02-create-table-readers.yml
+  - include:
+      file: db/changelog/changes/03-create-table-bookreaders.yml
+  - include:
+      file: db/changelog/changes/04-create-foreign-keys.yml
+#- logicalFilePath: db/changelog/db.changelog-1.yaml
+#  relativeToChangelogFile: true
