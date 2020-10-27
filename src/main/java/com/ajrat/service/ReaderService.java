@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Slf4j
@@ -24,9 +26,11 @@ public class ReaderService {
         return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Reader with id=" + id + " not found!"));
     }
 
-    public Iterable<Reader> findAll() {
+    public List<Reader> findAll() {
         log.info("From Reader service findAll");
-        return repository.findAll();
+        List<Reader> readerList = new ArrayList<>();
+        repository.findAll().forEach(readerList::add);
+        return readerList;
     }
 
     public void delete(Integer id) {
@@ -34,4 +38,16 @@ public class ReaderService {
         repository.delete(repository.findById(id).orElseThrow(() -> new NoSuchElementException("Reader for delete with id=" + id + " not found!")));
     }
 
+    public void saveByName(String name) {
+        log.info("From Reader service saving by name {}", name);
+        Reader reader = new Reader();
+        reader.setName(name);
+        save(reader);
+    }
+
+    public void edit(Reader reader) {
+        Reader readerOriginal = repository.findById(reader.getId()).orElseThrow(() -> new NoSuchElementException("Reader with id=" + reader.getId() + " not found!"));
+        readerOriginal.setName(reader.getName());
+        save(readerOriginal);
+    }
 }

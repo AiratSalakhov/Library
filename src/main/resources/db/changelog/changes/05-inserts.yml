@@ -1,0 +1,94 @@
+databaseChangeLog:
+  - changeSet:
+     id: 5
+     author: ajrat
+     changes:
+      - insert:
+         tableName: books
+         columns:
+         - column:
+            name: title
+            value: book title 1
+      - insert:
+         tableName: books
+         columns:
+             - column:
+                name: title
+                value: book title 2
+      - insert:
+         tableName: books
+         columns:
+             - column:
+                 name: title
+                 value: book title 3
+      - insert:
+         tableName: books
+         columns:
+             - column:
+                 name: title
+                 value: book title 4
+      - insert:
+         tableName: books
+         columns:
+             - column:
+                 name: title
+                 value: book title 5
+
+      - insert:
+          tableName: readers
+          columns:
+             - column:
+                 name: name
+                 value: reader name 1
+      - insert:
+          tableName: readers
+          columns:
+             - column:
+                 name: name
+                 value: reader name 2
+      - insert:
+          tableName: readers
+          columns:
+             - column:
+                 name: name
+                 value: reader name 3
+      - insert:
+          tableName: readers
+          columns:
+             - column:
+                 name: name
+                 value: reader name 4
+      - insert:
+          tableName: readers
+          columns:
+             - column:
+                 name: name
+                 value: reader name 5
+
+      - insert:
+          tableName: book_readers
+          columns:
+             - column:
+                 name: book_id
+                 value: 4
+             - column:
+                 name: reader_id
+                 value: 5
+             - column:
+                 name: issue_data
+                 value: 01.01.2020
+             - column:
+                 name: return_data
+                 value: 10.02.2020
+      - insert:
+          tableName: book_readers
+          columns:
+             - column:
+                 name: book_id
+                 value: 5
+             - column:
+                 name: reader_id
+                 value: 4
+             - column:
+                 name: issue_data
+                 value: 01.05.2020

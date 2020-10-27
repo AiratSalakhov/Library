@@ -15,7 +15,7 @@ public class ErrorController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ErrorInfo processException(Exception e) {
-        log.info("Request error: {}", e.getMessage());
+        log.info("ErrorController: Request error: {}", e.getMessage());
         return new ErrorInfo(e.getMessage());
     }
 

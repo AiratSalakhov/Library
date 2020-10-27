@@ -7,9 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Slf4j
 @RestController
@@ -19,35 +19,42 @@ public class BookController {
 
     private final BookService bookService;
 
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorInfo processException(Exception e) {
+        log.info("from BookController - No such element exception: {}", e.getMessage());
+        return new ErrorInfo(e.getMessage());
+    }
+
     @GetMapping("/title/{title}")
-    public Book getBook(@PathVariable String title) {
-        log.info("getting book from controller with title {}", title);
+    public Book findBook(@PathVariable String title) {
+        log.info("finding book from BookController with title {}", title);
         return bookService.findByTitle(title);
     }
 
     @GetMapping
     public List<Book> getBooks() {
-        List<Book> bookList = new ArrayList<>();
-        bookService.findAll().forEach(bookList::add);
-        return bookList;
+        log.info("getting all books from BookController");
+        return bookService.findAll();
     }
 
     @GetMapping("/{id}")
     public Book getBook(@PathVariable Integer id) {
-        log.info("getting book from controller with id {}", id);
+        log.info("getting book from BookController with id {}", id);
         return bookService.findById(id);
     }
 
     @GetMapping("/save")
     public void saveBook(@RequestParam String title) {
-        Book book = new Book(null, title, null);
-        bookService.save(book);
+        log.info("saving book from BookController with title trough get", title);
+        bookService.saveByTitle(title);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createBook(@RequestBody Book book) {
-        log.info("creating book from controller with id {} trough post", book.getId());
+        log.info("saving book from BookController with id {} trough post", book.getId());
         bookService.save(book);
     }
 
@@ -62,14 +69,13 @@ public class BookController {
 
     @PutMapping
     public void editBook(@RequestBody Book book) {
-        Book bookOriginal = bookService.findById(book.getId());
-        bookOriginal.setTitle(book.getTitle());
-        bookService.save(bookOriginal);
+        log.info("editing book from BookController with id {}", book.getId());
+        bookService.edit(book);
     }
 
     @DeleteMapping("/{id}")
     public void delBook(@PathVariable Integer id) {
-        log.info("deleting book from controller with id {}", id);
+        log.info("deleting book from BookController with id {}", id);
         bookService.delete(id);
     }
 }

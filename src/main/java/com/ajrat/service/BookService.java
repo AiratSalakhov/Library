@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Slf4j
@@ -19,14 +21,23 @@ public class BookService {
         repository.save(book);
     }
 
+    public void saveByTitle(String title) {
+        log.info("From Book service saving by title {}", title);
+        Book book = new Book();
+        book.setTitle(title);
+        save(book);
+    }
+
     public Book findById(Integer id) {
         log.info("From Book service findById {}", id);
         return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Book with id=" + id + " not found!"));
     }
 
-    public Iterable<Book> findAll() {
+    public List<Book> findAll() {
         log.info("From Book service findAll");
-        return repository.findAll();
+        List<Book> bookList = new ArrayList<>();
+        repository.findAll().forEach(bookList::add);
+        return bookList;
     }
 
     public void delete(Integer id) {
@@ -39,5 +50,10 @@ public class BookService {
         return repository.findByTitle(title).orElseThrow(() -> new NoSuchElementException("Book with title=" + title + " not found!"));
     }
 
-
+    public void edit(Book book) {
+        log.info("editing book from Book service with id {}", book.getId());
+        Book bookOriginal = repository.findById(book.getId()).orElseThrow(() -> new NoSuchElementException("Book with id=" + book.getId() + " not found!"));
+        bookOriginal.setTitle(book.getTitle());
+        save(bookOriginal);
+    }
 }
