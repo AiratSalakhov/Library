@@ -23,7 +23,8 @@ public class ReaderService {
 
     public Reader findById(Integer id) {
         log.info("From Reader service findById {}", id);
-        return repository.findById(id).orElseThrow(() -> new NoSuchElementException("Reader with id=" + id + " not found!"));
+        return repository.findById(id).orElseThrow(
+                () -> new NoSuchElementException(buildInfoThatReaderWithIdNotFound(id)));
     }
 
     public List<Reader> findAll() {
@@ -35,7 +36,8 @@ public class ReaderService {
 
     public void delete(Integer id) {
         log.info("From Reader service delete by id {}", id);
-        repository.delete(repository.findById(id).orElseThrow(() -> new NoSuchElementException("Reader for delete with id=" + id + " not found!")));
+        repository.delete(repository.findById(id).orElseThrow(
+                () -> new NoSuchElementException(buildInfoThatReaderWithIdNotFound(id))));
     }
 
     public void saveByName(String name) {
@@ -46,8 +48,13 @@ public class ReaderService {
     }
 
     public void edit(Reader reader) {
-        Reader readerOriginal = repository.findById(reader.getId()).orElseThrow(() -> new NoSuchElementException("Reader with id=" + reader.getId() + " not found!"));
+        Reader readerOriginal = repository.findById(reader.getId()).orElseThrow(
+                () -> new NoSuchElementException(buildInfoThatReaderWithIdNotFound(reader.getId())));
         readerOriginal.setName(reader.getName());
         save(readerOriginal);
+    }
+
+    private String buildInfoThatReaderWithIdNotFound(Integer id) {
+        return "Reader with id=" + id + " not found!";
     }
 }

@@ -18,5 +18,4 @@ public class ErrorController {
         log.info("ErrorController: Request error: {}", e.getMessage());
         return new ErrorInfo(e.getMessage());
     }
-
 }

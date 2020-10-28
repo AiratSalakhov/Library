@@ -29,7 +29,8 @@ public class BookReaderService {
 
     public BookReader findById(Integer id) {
         log.info("From BookReader service findById {}", id);
-        return repository.findById(id).orElseThrow(() -> new NoSuchElementException("BookReader with id=" + id + " not found!"));
+        return repository.findById(id).orElseThrow(
+                () -> new NoSuchElementException(buildInfoThatBookReaderWithIdNotFound(id)));
     }
 
     public List<BookReader> findAll() {
@@ -41,11 +42,13 @@ public class BookReaderService {
 
     public void delete(Integer id) {
         log.info("From BookReader service delete by id {}", id);
-        repository.delete(repository.findById(id).orElseThrow(() -> new NoSuchElementException("BookReader for delete with id=" + id + " not found!")));
+        repository.delete(repository.findById(id).orElseThrow(
+                () -> new NoSuchElementException(buildInfoThatBookReaderWithIdNotFound(id))));
     }
 
     public void edit(BookReader bookReader) {
-        BookReader bookReaderOriginal = repository.findById(bookReader.getId()).orElseThrow(() -> new NoSuchElementException("BookReader with id=" + bookReader.getId() + " not found!"));
+        BookReader bookReaderOriginal = repository.findById(bookReader.getId()).orElseThrow(
+                () -> new NoSuchElementException(buildInfoThatBookReaderWithIdNotFound(bookReader.getId())));
         bookReaderOriginal.setBook(bookReader.getBook());
         bookReaderOriginal.setReader(bookReader.getReader());
         bookReaderOriginal.setIssueData(bookReader.getIssueData());
@@ -57,10 +60,8 @@ public class BookReaderService {
         Book book = bookService.findById(bookId);
         Reader reader = readerService.findById(readerId);
         repository.findByBookAndReturnDataIsNull(book).ifPresent((b) -> {
-            log.info("Book with id {} and title {} is already taken", b.getBook().getId(), b.getBook().getTitle());
-            throw new RuntimeException("Book with id " + b.getBook().getId() + " and title " +
-                    b.getBook().getTitle() + " is already taken at " + b.getIssueData() +
-                    " and not returned back by reader " + b.getReader().getName());
+            log.info(buildInfoThatBookIsAlreadyTaken(b));
+            throw new RuntimeException(buildInfoThatBookIsAlreadyTaken(b));
         });
         BookReader bookReader = new BookReader();
         bookReader.setBook(book);
@@ -69,15 +70,33 @@ public class BookReaderService {
         save(bookReader);
     }
 
+    private String buildInfoThatBookIsAlreadyTaken(BookReader b) {
+        return "Book with id " + b.getBook().getId() +
+                " and title " + b.getBook().getTitle() +
+                " is already taken at " + b.getIssueData() +
+                " and not returned back by reader " + b.getReader().getName();
+    }
+
+    private String buildInfoThatBookIsNotTakenYet(Integer bookId) {
+        return "Book with id " + bookId +
+                " is not taken yet and can't be returned!";
+    }
+
+    private String buildInfoThatBookReaderWithIdNotFound(Integer id) {
+        return "BookReader with id=" + id +
+                " not found!";
+    }
+
     public void returnBook(Integer bookId) {
         Book book = bookService.findById(bookId);
-        repository.findByBookAndReturnDataIsNull(book).ifPresentOrElse((b) -> {
-            b.setReturnData(ZonedDateTime.now());
-            save(b);
-        }, () -> {
-            log.info("Book with id {} is not taken yet", bookId);
-            throw new RuntimeException("Book with id " + bookId + " is not taken yet and can't be returned!");
-        });
+        repository.findByBookAndReturnDataIsNull(book).ifPresentOrElse(
+                (b) -> {
+                    b.setReturnData(ZonedDateTime.now());
+                    save(b);
+                },
+                () -> {
+                    log.info(buildInfoThatBookIsNotTakenYet(bookId));
+                    throw new RuntimeException(buildInfoThatBookIsNotTakenYet(bookId));
+                });
     }
 }
-
