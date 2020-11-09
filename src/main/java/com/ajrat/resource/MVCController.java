@@ -18,4 +18,9 @@ public class MVCController {
     public String createNewElement() {
         return "newelement";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 }
