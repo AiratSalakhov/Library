@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: ajrat
+      changes:
+        - addColumn:
+            tableName: readers
+            columns:
+              - column:
+                  name: password
+                  type: varchar(100)
+              - column:
+                  name: role
+                  type: varchar(25)
+              - column:
+                  name: status
+                  type: varchar(10)

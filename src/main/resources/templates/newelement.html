@@ -14,8 +14,12 @@
     New book title: <input name="title" type="text"><span><input type="submit" value="Create book">
 </form>
 <br>
-<form method="GET" action="/readers/save" target="_blank">
-    New reader name: <input name="name" type="text"><span><input type="submit" value="Create reader">
+<form method="POST" action="/readers/save" target="_blank">
+    New reader name: <input name="name" type="text">
+    password: <input name="password" type="password">
+    role (ADMIN, USER): <input name="role" type="text">
+    status (ACTIVE, BANNED): <input name="status" type="text">
+    <span><input type="submit" value="Create reader">
 </form>
 <br>
 <form method="POST" action="/books/id" target="_blank">

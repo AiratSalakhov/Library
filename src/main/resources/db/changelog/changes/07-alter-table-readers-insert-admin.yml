@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: ajrat
+      changes:
+        - insert:
+            tableName: readers
+            columns:
+              - column:
+                  name: name
+                  value: admin
+              - column:
+                  name: password
+                  value: $2y$12$RXQ/9n.loJGB3j0rGuRjFu0j/oxAwgK.k4jnXmZWAyQIMg18uUx3a
+              - column:
+                  name: role
+                  value: ADMIN
+              - column:
+                  name: status
+                  value: ACTIVE

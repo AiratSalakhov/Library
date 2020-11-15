@@ -9,5 +9,9 @@ databaseChangeLog:
      file: db/changelog/changes/04-create-foreign-keys.yml
   - include:
      file: db/changelog/changes/05-inserts.yml
+  - include:
+      file: db/changelog/changes/06-alter-table-readers.yml
+  - include:
+      file: db/changelog/changes/07-alter-table-readers-insert-admin.yml
 #- logicalFilePath: db/changelog/db.changelog-1.yaml
 #  relativeToChangelogFile: true
