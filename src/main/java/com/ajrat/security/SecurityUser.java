@@ -2,6 +2,7 @@ package com.ajrat.security;
 
 import com.ajrat.domain.Reader;
 import com.ajrat.domain.Status;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,19 +12,13 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
+@AllArgsConstructor
 public class SecurityUser implements UserDetails {
 
     private final String username;
     private final String password;
     private final List<SimpleGrantedAuthority> authorities;
     private final boolean isActive;
-
-    public SecurityUser(String username, String password, List<SimpleGrantedAuthority> authorities, boolean isActive) {
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-        this.isActive = isActive;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
