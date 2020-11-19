@@ -49,16 +49,16 @@ public class ReaderController {
     @PreAuthorize("hasAuthority('readers:write')")
     public void saveReader(@RequestParam("name") String name,
                            @RequestParam("password") String password,
-                           @RequestParam("role") Role role,
-                           @RequestParam("status") Status status) {
-        if (!"ADMIN".equals(role.name()) && !"USER".equals(role.name())) {
+                           @RequestParam("role") String role,
+                           @RequestParam("status") String status) {
+        if (!"ADMIN".equals(role) && !"USER".equals(role)) {
             throw new RuntimeException("Bad role specified!");
         }
-        if (!"ACTIVE".equals(status.name()) && !"BANNED".equals(status.name())) {
+        if (!"ACTIVE".equals(status) && !"BANNED".equals(status)) {
             throw new RuntimeException("Bad role specified!");
         }
 
-        readerService.save(new Reader(null, name, passwordEncoder.encode(password), role, status));
+        readerService.save(new Reader(null, name, passwordEncoder.encode(password), Role.valueOf(role), Status.valueOf(status)));
     }
 
     @PostMapping

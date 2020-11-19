@@ -58,15 +58,6 @@ public class BookController {
         bookService.save(book);
     }
 
-    @PostMapping("/id")
-    public void testIntegerId(@RequestHeader Map<String, String> headers, @RequestBody String reqBody, @RequestParam(required = false) Integer id) {
-        headers.forEach((key, value) -> {
-            log.info(String.format("Header '%s' = %s", key, value));
-        });
-        log.info("Request body={}", reqBody);
-        log.info("Integer id {} obtained trough post method", id);
-    }
-
     @PutMapping
     public void editBook(@RequestBody Book book) {
         log.info("editing book from BookController with id {}", book.getId());

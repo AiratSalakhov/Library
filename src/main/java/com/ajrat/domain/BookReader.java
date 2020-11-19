@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 @Data
 @Table(name = "book_readers")
 public class BookReader {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -23,6 +24,7 @@ public class BookReader {
 
     @Column(name = "issue_data")
     private ZonedDateTime issueData;
+
     @Column(name = "return_data")
     private ZonedDateTime returnData;
 }
