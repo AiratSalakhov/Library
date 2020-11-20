@@ -3,7 +3,10 @@ package com.ajrat.resource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -16,9 +19,9 @@ public class MVCController {
         return "hello";
     }
 
-    @GetMapping("/newelement")
-    public String createNewElement() {
-        return "newelement";
+    @GetMapping("/control")
+    public String control() {
+        return "control";
     }
 
     @GetMapping("/requestHeaders")
@@ -32,6 +35,7 @@ public class MVCController {
 
     @GetMapping("/login")
     public String login() {
+        log.info("login called...");
         return "login";
     }
 }

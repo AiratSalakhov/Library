@@ -6,10 +6,10 @@
 </head>
 <body>
 <div th:if="${param.error}">
-    <font color="red" size="12">Invalid username and password.</font>
+    <font color="red" size="6">Invalid username and password.</font>
 </div>
 <div th:if="${param.logout}">
-    <font color="green" size="12">
+    <font color="green" size="6">
     You have been logged out.</font>
 </div>
 <form th:action="@{/login}" method="post">
@@ -18,6 +18,6 @@
     <div><input type="submit" value="Sign In"/></div>
 </form>
 <br>
-<a href="/">go back</a>
+<a href="/">go home</a>
 </body>
 </html>
