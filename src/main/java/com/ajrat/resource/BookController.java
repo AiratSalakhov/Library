@@ -47,8 +47,8 @@ public class BookController {
         return bookService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Book getBook(@PathVariable(name = "id") String stringId) {
+    @GetMapping("/{stringId}")
+    public Book getBook(@PathVariable String stringId) {
         Integer id = Integer.valueOf(stringId);
         log.info("getting book from BookController with id {}", id);
         return bookService.findById(id);
